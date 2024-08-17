@@ -28,7 +28,7 @@ jobs:
 
       # Scan Docker image with Trivy for vulnerabilities
       - name: Scan Docker image for vulnerabilities with Trivy
-        uses: aquasecurity/trivy-action@v0.11.0
+        uses: aquasecurity/trivy-action@v0
         with:
           image-ref: ghcr.io/votre_nom_utilisateur/ue19_labo09-10/blague-app:latest
           format: table
