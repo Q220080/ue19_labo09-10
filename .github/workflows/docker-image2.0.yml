@@ -24,7 +24,7 @@ jobs:
 
       # Build the Docker image
       - name: Build Docker image
-        run: docker build -t ghcr.io/monutilisateur/ue19_labo09-10/blague-app:latest .
+        run: docker build -t ghcr.io/q220080/ue19_labo09-10/blague-app:latest .
 
       # Install Trivy
       - name: Install Trivy
@@ -41,4 +41,4 @@ jobs:
       # Push the Docker image to GitHub Packages (only if the scan passes)
       - name: Push Docker image to GitHub Packages
         if: success()
-        run: docker push ghcr.io/monutilisateur/ue19_labo09-10/blague-app:latest
+        run: docker push ghcr.io/q220080/ue19_labo09-10/blague-app:latest
