@@ -1,0 +1,40 @@
+name: Build, Scan, and Publish Docker Image
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      # Checkout the repository
+      - name: Checkout code
+        uses: actions/checkout@v3
+
+      # Log in to Docker Hub or GitHub Registry (change to match your choice)
+      - name: Log in to GitHub Docker Registry
+        uses: docker/login-action@v2
+        with:
+          registry: ghcr.io
+          username: ${{ github.actor }}
+          password: ${{ secrets.GITHUB_TOKEN }}
+
+      # Build the Docker image
+      - name: Build Docker image
+        run: docker build -t ghcr.io/votre_nom_utilisateur/ue19_labo09-10/blague-app:latest .
+
+      # Scan Docker image with Trivy for vulnerabilities
+      - name: Scan Docker image for vulnerabilities with Trivy
+        uses: aquasecurity/trivy-action@v0.11.0
+        with:
+          image-ref: ghcr.io/votre_nom_utilisateur/ue19_labo09-10/blague-app:latest
+          format: table
+          ignore-unfixed: true # Ignore vulnerabilities that do not have a fix
+
+      # Push the Docker image to GitHub Packages (only if the scan passes)
+      - name: Push Docker image to GitHub Packages
+        if: success() # This ensures the image is only pushed if the scan is successful
+        run: docker push ghcr.io/votre_nom_utilisateur/ue19_labo09-10/blague-app:latest
