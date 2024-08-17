@@ -36,7 +36,7 @@ jobs:
 
       # Scan Docker image with Trivy
       - name: Scan Docker image for vulnerabilities
-        run: trivy image --ignore-unfixed --format table ghcr.io/monutilisateur/ue19_labo09-10/blague-app:latest
+        run: trivy image --ignore-unfixed --format table ghcr.io/q220080/ue19_labo09-10/blague-app:latest
 
       # Push the Docker image to GitHub Packages (only if the scan passes)
       - name: Push Docker image to GitHub Packages
